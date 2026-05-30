@@ -1,0 +1,24 @@
+.not-found {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  padding: 20px;
+}
+
+.not-found h1 {
+  font-size: 4rem;
+  color: #e63946;
+  margin: 0;
+  font-weight: 700;
+}
+
+.not-found p {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0;
+  max-width: 500px;
+}
