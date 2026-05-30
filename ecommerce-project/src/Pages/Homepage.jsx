@@ -2,24 +2,19 @@ import "./Homepage.css";
 import { Header } from "../Components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
-export function Homepage() {
+import { computeCartTotal } from "../utilities/moneyCompute";
+export function Homepage({cartItems}) {
   const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
+  
   async function fetchProducts() {
     const response = await axios.get("/api/products");
     const data = response.data;
     setProducts(data);
   }
 
-  async function fetchCartItems() {
-    const response = await axios.get("/api/cart-items");
-    const data = response.data;
-    setCartItems(data);
-   
-  }
+
   useEffect(() => {
     fetchProducts();
-    fetchCartItems();
   }, []);
 
   return (
@@ -52,7 +47,7 @@ export function Homepage() {
                 </div>
 
                 <div className="product-price">
-                  ${(item.priceCents / 100).toFixed(2)}
+                  {computeCartTotal(item.priceCents)}
                 </div>
 
                 <div className="product-quantity-container">

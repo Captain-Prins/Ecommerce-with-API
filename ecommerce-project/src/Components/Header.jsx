@@ -8,7 +8,6 @@ export function Header({cartItems}) {
     
   });
 
-console.log(totalQuantity);
 
   return (
     <>
