@@ -1,4 +1,4 @@
-import {Header} from "../Components/Header";
+import {Header} from "../../Components/Header";
 import './NotFound.css';
 export function NotFound({ cartItems }) {
   return (

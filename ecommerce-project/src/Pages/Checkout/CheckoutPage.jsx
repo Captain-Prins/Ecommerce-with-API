@@ -1,6 +1,5 @@
 import "./CheckoutPage.css";
 import { CheckoutHeader } from "./CheckoutHeader";
-import { computeCartTotal } from "../../utilities/moneyCompute";
 import { PaymentSummary } from "./PaymentSummary";
 import {OrderSummary} from "./OrderSummary";
 import axios from "axios";
