@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Homepage } from "./Pages/Homepage";
-import { CheckoutPage } from "./Pages/CheckoutPage";
+import { Homepage } from "./Pages/Home/Homepage";
+import { CheckoutPage } from "./Pages/Checkout/CheckoutPage";
 import { OrdersPage } from "./Pages/OrdersPage";
 import { TrackingPage } from "./Pages/TrackingPage";
 import { NotFound } from "./Pages/NotFound";
@@ -26,8 +26,8 @@ function App() {
       <Route index element={<Homepage cartItems={cartItems} />} />
       <Route path="checkout" element={<CheckoutPage cartItems={cartItems} />} />
       <Route path="order" element={<OrdersPage cartItems={cartItems}  />} />
-      <Route path="tracking" element={<TrackingPage />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="tracking" element={<TrackingPage cartItems={cartItems} />} />
+      <Route path="*" element={<NotFound cartItems={cartItems} />} />
     </Routes>
   );
 }

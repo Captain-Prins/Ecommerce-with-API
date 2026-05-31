@@ -1,29 +1,7 @@
-import "./Homepage.css";
-import { Header } from "../Components/Header";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { computeCartTotal } from "../utilities/moneyCompute";
-export function Homepage({cartItems}) {
-  const [products, setProducts] = useState([]);
-  
-  async function fetchProducts() {
-    const response = await axios.get("/api/products");
-    const data = response.data;
-    setProducts(data);
-  }
-
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  return (
-    <>
-      <link rel="icon" href="/images/icons/home-favicon.png" />
-      <title>Ecommerce Project</title>
-
-      <Header cartItems={cartItems} />
-      <div className="home-page">
+import { computeCartTotal } from "../../utilities/moneyCompute";
+export function ProductsGrid({products}) {
+    return(
+        
         <div className="products-grid">
           {products.map((item) => {
             return (
@@ -79,7 +57,9 @@ export function Homepage({cartItems}) {
             );
           })}
         </div>
-      </div>
-    </>
-  );
+        
+    
+
+    )
+
 }
