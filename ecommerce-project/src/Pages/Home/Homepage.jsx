@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-export function Homepage({cartItems}) {
+export function Homepage({cartItems ,fetchCartItems}) {
   const [products, setProducts] = useState([]);
   
   async function fetchProducts() {
@@ -26,7 +26,7 @@ export function Homepage({cartItems}) {
 
       <Header cartItems={cartItems} />
       <div className="home-page">
-        <ProductsGrid products={products} />
+        <ProductsGrid products={products} fetchCartItems={fetchCartItems} />
       </div>
     </>
   );

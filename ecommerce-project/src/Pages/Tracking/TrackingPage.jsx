@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 import { useParams } from "react-router-dom";
 import { Header } from "../../Components/Header";
 import { useEffect, useState } from "react";
+
+
 export function TrackingPage({ cartItems }) {
   const { orderId, productId } = useParams();
   const [order, setOrder] = useState(null);
@@ -21,7 +23,7 @@ export function TrackingPage({ cartItems }) {
   }
 
   const orderProduct = order.products.find(
-    (product) => product.productId === productId,
+    (prod) => prod.productId === productId,
   );
 
   const totalDeliveryTimeMs =
