@@ -1,5 +1,15 @@
 import { computeCartTotal } from "../../utilities/moneyCompute";
-export function CartItemDetails({ item}) {
+import axios from "axios";
+export function CartItemDetails({ item, fetchCartItems }) {
+  async function DeleteCartItem(productId) {
+    try {
+      const response = await axios.delete(`/api/cart-items/${productId}`);
+    } catch (error) {
+      console.error(error.response?.data);
+    }
+
+    fetchCartItems();
+  }
   return (
     <>
       <img className="product-image" src={item.product.image} />
@@ -14,7 +24,14 @@ export function CartItemDetails({ item}) {
             Quantity: <span className="quantity-label">{item.quantity}</span>
           </span>
           <span className="update-quantity-link link-primary">Update</span>
-          <span className="delete-quantity-link link-primary">Delete</span>
+          <span
+            className="delete-quantity-link link-primary"
+            onClick={() => {
+              DeleteCartItem(item.productId);
+            }}
+          >
+            Delete
+          </span>
         </div>
       </div>
     </>

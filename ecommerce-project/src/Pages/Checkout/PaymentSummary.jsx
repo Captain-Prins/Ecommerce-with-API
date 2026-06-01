@@ -1,5 +1,21 @@
 import { computeCartTotal } from "../../utilities/moneyCompute";
-export function PaymentSummary({paymentSummary}) {
+import axios from "axios";
+import { useNavigate } from "react-router";
+export function PaymentSummary({ paymentSummary, fetchCartItems }) {
+  
+  const navigate = useNavigate();
+  
+  
+  async function placeOrder() {
+    try {
+      const response = await axios.post("/api/orders");
+    } catch (error) {
+      console.error(error.response?.data);
+    }
+    fetchCartItems();
+    navigate("/order");
+  }
+
   return (
     <>
       {paymentSummary && (
@@ -10,7 +26,7 @@ export function PaymentSummary({paymentSummary}) {
             <div>Items ({paymentSummary?.totalItems || 0}):</div>
             <div className="payment-summary-money">
               {paymentSummary
-                ? `$${computeCartTotal(paymentSummary.productCostCents)}`
+                ? `${computeCartTotal(paymentSummary.productCostCents)}`
                 : "$0.00"}
             </div>
           </div>
@@ -19,7 +35,7 @@ export function PaymentSummary({paymentSummary}) {
             <div>Shipping &amp; handling:</div>
             <div className="payment-summary-money">
               {paymentSummary
-                ? `$${computeCartTotal(paymentSummary.shippingCostCents)}`
+                ? `${computeCartTotal(paymentSummary.shippingCostCents)}`
                 : "$0.00"}
             </div>
           </div>
@@ -28,7 +44,7 @@ export function PaymentSummary({paymentSummary}) {
             <div>Total before tax:</div>
             <div className="payment-summary-money">
               {paymentSummary
-                ? `$${computeCartTotal(paymentSummary.totalCostBeforeTaxCents)}`
+                ? `${computeCartTotal(paymentSummary.totalCostBeforeTaxCents)}`
                 : "$0.00"}
             </div>
           </div>
@@ -37,7 +53,7 @@ export function PaymentSummary({paymentSummary}) {
             <div>Estimated tax (10%):</div>
             <div className="payment-summary-money">
               {paymentSummary
-                ? `$${computeCartTotal(paymentSummary.taxCents)}`
+                ? `${computeCartTotal(paymentSummary.taxCents)}`
                 : "$0.00"}
             </div>
           </div>
@@ -46,12 +62,17 @@ export function PaymentSummary({paymentSummary}) {
             <div>Order total:</div>
             <div className="payment-summary-money">
               {paymentSummary
-                ? `$${computeCartTotal(paymentSummary.totalCostCents)}`
+                ? `${computeCartTotal(paymentSummary.totalCostCents)}`
                 : "$0.00"}
             </div>
           </div>
 
-          <button className="place-order-button button-primary">
+          <button
+            className="place-order-button button-primary"
+            onClick={() => {
+              placeOrder();
+            }}
+          >
             Place your order
           </button>
         </div>

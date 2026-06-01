@@ -15,6 +15,11 @@ export function Products({ item, fetchCartItems }) {
       console.error(error.response?.data);
     }
   }
+
+  const handleQuantityChange = (event) => {
+    setQuantity(parseInt(event.target.value));
+  };
+
   return (
     <>
       <div className="product-container">
@@ -37,13 +42,7 @@ export function Products({ item, fetchCartItems }) {
         <div className="product-price">{computeCartTotal(item.priceCents)}</div>
 
         <div className="product-quantity-container">
-          <select
-            value={quantity}
-            onChange={(e) => {
-              const quantitySelected = Number(e.target.value);
-              setQuantity(quantitySelected);
-            }}
-          >
+          <select value={quantity} onChange={handleQuantityChange}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

@@ -5,7 +5,7 @@ import {OrderSummary} from "./OrderSummary";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export function CheckoutPage({ cartItems }) {
+export function CheckoutPage({ cartItems, fetchCartItems }) {
   const [deliveryOption, setDeliveryOption] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
 
@@ -24,20 +24,20 @@ export function CheckoutPage({ cartItems }) {
   useEffect(() => {
     fetchDeliveryOptions();
     payments();
-  }, []);
+  }, [cartItems]);
 
   return (
     <>
       <link rel="icon" href="/images/icons/cart-favicon.png" />
       <title>Checkout</title>
-      <CheckoutHeader />
+      <CheckoutHeader cartItems={cartItems} />
 
       <div className="checkout-page">
         <div className="page-title">Review your order</div>
 
         <div className="checkout-grid">
-        <OrderSummary cartItems={cartItems} deliveryOption={deliveryOption} />
-        <PaymentSummary paymentSummary={paymentSummary} />
+        <OrderSummary cartItems={cartItems} deliveryOption={deliveryOption} fetchCartItems={fetchCartItems} />
+        <PaymentSummary paymentSummary={paymentSummary} fetchCartItems={fetchCartItems} />
         </div>
       </div>
     </>
