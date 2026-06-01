@@ -13,6 +13,7 @@ export function TrackingPage({ cartItems }) {
     const response = await axios.get(`/api/orders/${orderId}?expand=products`);
     const data = response.data;
     setOrder(data);
+    console.log(data)
   }
   useEffect(() => {
     ordering();
@@ -32,7 +33,7 @@ export function TrackingPage({ cartItems }) {
   const timePassedMs = dayjs().valueOf() - order.orderTimeMs;
 
   const deliveryPercent = Math.min(
-    (timePassedMs / totalDeliveryTimeMs) * 100,
+    (timePassedMs / totalDeliveryTimeMs) * 0.3,
     100,
   );
   return (
