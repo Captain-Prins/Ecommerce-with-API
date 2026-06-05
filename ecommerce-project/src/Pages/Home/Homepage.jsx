@@ -6,6 +6,7 @@ import axios from "axios";
 
 
 export function Homepage({cartItems ,fetchCartItems}) {
+
   const [products, setProducts] = useState([]);
   
   async function fetchProducts() {

@@ -1,6 +1,20 @@
-import {Fragment} from "react";
+import { Fragment } from "react";
 import dayjs from "dayjs";
-export function OrderDetailsGrid({ order }) {
+import axios from "axios";
+export function OrderDetailsGrid({ order, fetchCartItems }) {
+  async function addCartItem(productId, quantity) {
+    try {
+      await axios.post("/api/cart-items", {
+        productId,
+        quantity,
+      });
+
+    await fetchCartItems();
+    } catch (error) {
+      console.error(error.response?.data);
+    }
+  }
+
   return (
     <div className="order-details-grid">
       {order.products.map((OrderProduct) => {
@@ -22,7 +36,11 @@ export function OrderDetailsGrid({ order }) {
               <div className="product-quantity">
                 Quantity: {OrderProduct ? OrderProduct.quantity : 1}
               </div>
-              <button className="buy-again-button button-primary">
+              <button className="buy-again-button button-primary" onClick ={() => {
+                addCartItem(OrderProduct.productId, 1);
+            
+              }}
+                >
                 <img
                   className="buy-again-icon"
                   src="images/icons/buy-again.png"
@@ -32,7 +50,7 @@ export function OrderDetailsGrid({ order }) {
             </div>
 
             <div className="product-actions">
-                <a href={`/tracking/${order.id}/${OrderProduct.productId}`}>
+              <a href={`/tracking/${order.id}/${OrderProduct.productId}`}>
                 <button className="track-package-button button-secondary">
                   Track package
                 </button>

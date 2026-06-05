@@ -1,7 +1,7 @@
 import "./CheckoutPage.css";
 import { CheckoutHeader } from "./CheckoutHeader";
 import { PaymentSummary } from "./PaymentSummary";
-import {OrderSummary} from "./OrderSummary";
+import { OrderSummary } from "./OrderSummary";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -22,10 +22,12 @@ export function CheckoutPage({ cartItems, fetchCartItems }) {
     setPaymentSummary(data);
   }
   useEffect(() => {
-    fetchDeliveryOptions();
     payments();
   }, [cartItems]);
 
+  useEffect(() => {
+    fetchDeliveryOptions();
+  }, []);
   return (
     <>
       <link rel="icon" href="/images/icons/cart-favicon.png" />
@@ -36,8 +38,15 @@ export function CheckoutPage({ cartItems, fetchCartItems }) {
         <div className="page-title">Review your order</div>
 
         <div className="checkout-grid">
-        <OrderSummary cartItems={cartItems} deliveryOption={deliveryOption} fetchCartItems={fetchCartItems} />
-        <PaymentSummary paymentSummary={paymentSummary} fetchCartItems={fetchCartItems} />
+          <OrderSummary
+            cartItems={cartItems}
+            deliveryOption={deliveryOption}
+            fetchCartItems={fetchCartItems}
+          />
+          <PaymentSummary
+            paymentSummary={paymentSummary}
+            fetchCartItems={fetchCartItems}
+          />
         </div>
       </div>
     </>

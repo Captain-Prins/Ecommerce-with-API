@@ -25,7 +25,7 @@ function App() {
     <Routes>
       <Route index element={<Homepage cartItems={cartItems} fetchCartItems={fetchCartItems}/>} />
       <Route path="checkout" element={<CheckoutPage cartItems={cartItems}  fetchCartItems={fetchCartItems}/>} />
-      <Route path="order" element={<OrdersPage cartItems={cartItems}  />} />
+      <Route path="order" element={<OrdersPage cartItems={cartItems}  fetchCartItems={fetchCartItems}/>} />
       <Route path="tracking/:orderId/:productId" element={<TrackingPage cartItems={cartItems} />} />
       <Route path="*" element={<NotFound cartItems={cartItems} />} />
     </Routes>

@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 export function TrackingPage({ cartItems }) {
   const { orderId, productId } = useParams();
   const [order, setOrder] = useState(null);
+  let isPreparing = false;
+  let isShipped = false;
+  let isDelivered = false;
   async function ordering() {
     const response = await axios.get(`/api/orders/${orderId}?expand=products`);
     const data = response.data;
@@ -36,6 +39,16 @@ export function TrackingPage({ cartItems }) {
     (timePassedMs / totalDeliveryTimeMs) * 0.3,
     100,
   );
+
+  if(deliveryPercent < 33){
+    isPreparing = true;
+  }else if (deliveryPercent >= 33 && deliveryPercent < 100){
+    isShipped = true;
+  }else if (deliveryPercent === 100){
+    isDelivered = true;
+  }
+
+  const deliveryDate = dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D, YYYY');
   return (
     <>
       <title>Tracking Page</title>
@@ -47,7 +60,9 @@ export function TrackingPage({ cartItems }) {
             View all orders
           </a>
 
-          <div className="delivery-date">Arriving on Monday, June 13</div>
+          <div className="delivery-date">{deliveryPercent >= 100
+    ? `Delivered on ${deliveryDate}`
+    : `Arriving on ${deliveryDate}`}</div>
 
           <div className="product-info">
             Black and Gray Athletic Cotton Socks - 6 Pairs
@@ -61,9 +76,9 @@ export function TrackingPage({ cartItems }) {
           />
 
           <div className="progress-labels-container">
-            <div className="progress-label">Preparing</div>
-            <div className="progress-label current-status">Shipped</div>
-            <div className="progress-label">Delivered</div>
+            <div className={`progress-label ${isPreparing && 'current-status'}`}>Preparing</div>
+            <div className={`progress-label ${isShipped && 'current-status' }`}>Shipped</div>
+            <div className={`progress-label ${isDelivered && 'current-status'}`}>Delivered</div>
           </div>
 
           <div className="progress-bar-container">

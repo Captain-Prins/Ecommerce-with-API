@@ -2,6 +2,7 @@ import { computeCartTotal } from "../../utilities/moneyCompute";
 import { useState } from "react";
 import axios from "axios";
 export function Products({ item, fetchCartItems }) {
+  const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
   async function addCartItem(productId, quantity) {
     try {
@@ -11,6 +12,14 @@ export function Products({ item, fetchCartItems }) {
       });
 
       console.log(response.data);
+      setAdded(true);
+
+      setTimeout(() => {
+        setAdded(false);
+      }, 2000);
+
+
+
     } catch (error) {
       console.error(error.response?.data);
     }
@@ -58,7 +67,7 @@ export function Products({ item, fetchCartItems }) {
 
         <div className="product-spacer"></div>
 
-        <div className="added-to-cart">
+        <div className="added-to-cart" style={{ opacity: added ? 1 : 0 }}>
           <img src="images/icons/checkmark.png" />
           Added
         </div>
