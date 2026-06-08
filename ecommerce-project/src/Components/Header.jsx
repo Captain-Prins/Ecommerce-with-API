@@ -1,7 +1,9 @@
 import "./header.css";
 import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 import { useSearchParams } from "react-router";
+
 export function Header({ cartItems }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -9,9 +11,12 @@ export function Header({ cartItems }) {
   cartItems.forEach((item) => {
     totalQuantity += item.quantity;
   });
+
+  const [search, setSearch] = useState(searchParams.get("query") || "");
+
   function handleSearch() {
-    navigate(`/?search=${searchParams.get("query") || ""}`);
-  }
+  navigate(`/?query=${search}`);
+}
   return (
     <>
       <div className="header">
@@ -27,8 +32,8 @@ export function Header({ cartItems }) {
             className="search-bar"
             type="text"
             placeholder="Search"
-            value={searchParams.get("query") || ""}
-            onChange={(e) => setSearchParams({ query: e.target.value })}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             onClick={() => {
               console.log("Search bar clicked");
             }}
